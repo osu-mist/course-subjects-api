@@ -1,4 +1,4 @@
-package edu.oregonstate.mist.webapiskeleton
+package edu.oregonstate.mist.coursesubjectsapi
 
 import edu.oregonstate.mist.api.Configuration
 import edu.oregonstate.mist.api.Resource
@@ -14,15 +14,7 @@ import io.dropwizard.auth.basic.BasicAuthFactory
 /**
  * Main application class.
  */
-class SkeletonApplication extends Application<Configuration> {
-    /**
-     * Initializes application bootstrap.
-     *
-     * @param bootstrap
-     */
-    @Override
-    public void initialize(Bootstrap<Configuration> bootstrap) {}
-
+class SubjectsApplication extends Application<Configuration> {
     /**
      * Parses command-line arguments and runs the application.
      *
@@ -37,7 +29,7 @@ class SkeletonApplication extends Application<Configuration> {
                 AuthFactory.binder(
                         new BasicAuthFactory<AuthenticatedUser>(
                                 new BasicAuthenticator(configuration.getCredentialsList()),
-                                'SkeletonApplication',
+                                'SubjectsApplication',
                                 AuthenticatedUser.class)))
     }
 
@@ -48,6 +40,6 @@ class SkeletonApplication extends Application<Configuration> {
      * @throws Exception
      */
     public static void main(String[] arguments) throws Exception {
-        new SkeletonApplication().run(arguments)
+        new SubjectsApplication().run(arguments)
     }
 }
