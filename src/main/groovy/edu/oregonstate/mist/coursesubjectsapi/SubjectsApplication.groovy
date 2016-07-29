@@ -8,6 +8,7 @@ import edu.oregonstate.mist.api.AuthenticatedUser
 import edu.oregonstate.mist.api.BasicAuthenticator
 import edu.oregonstate.mist.coursesubjectsapi.dao.SubjectsDAO
 import edu.oregonstate.mist.coursesubjectsapi.dao.UtilHttp
+import edu.oregonstate.mist.coursesubjectsapi.resources.SubjectResource
 import io.dropwizard.Application
 import io.dropwizard.client.HttpClientBuilder
 import io.dropwizard.setup.Environment
@@ -42,7 +43,11 @@ class SubjectsApplication extends Application<SubjectsConfiguration> {
         UtilHttp utilHttp = new UtilHttp(configuration.classSearch)
 
         // setup dao
-        SubjectsDAO classSearchDAO = new SubjectsDAO(utilHttp, httpClient)
+        SubjectsDAO subjectsDAO = new SubjectsDAO(utilHttp, httpClient)
+
+        def classSearchResource = new SubjectResource(subjectsDAO: subjectsDAO)
+        classSearchResource.setEndpointUri(configuration.getApi().getEndpointUri())
+        environment.jersey().register(classSearchResource)
 
         environment.jersey().register(new InfoResource())
         environment.jersey().register(

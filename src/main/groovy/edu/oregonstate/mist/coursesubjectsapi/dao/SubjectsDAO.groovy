@@ -20,14 +20,8 @@ class SubjectsDAO {
     }
 
     /**
-     * Performs class search and returns results in jsonapi format
+     * Fetches course subjects and returns results in jsonapi format
      *
-     * @param term
-     * @param subject
-     * @param courseNumber
-     * @param q
-     * @param pageNumber
-     * @param pageSize
      * @return
      */
     public def getData() {
