@@ -18,7 +18,6 @@ class UtilHttp {
         this.apiConfiguration = apiConfiguration
     }
 
-
     public CloseableHttpResponse sendGet(LinkedHashMap<String, Integer> query,
                                          HttpClient httpClient) {
         BasicCredentialsProvider credsProvider = getCredentialsProvider()

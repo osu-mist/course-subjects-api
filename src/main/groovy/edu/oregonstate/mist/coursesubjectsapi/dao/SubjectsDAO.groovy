@@ -44,7 +44,7 @@ class SubjectsDAO {
 
             data = this.mapper.readValue(entityString,
                     new TypeReference<List<HashMap>>() {
-                    });
+                    })
 
             EntityUtils.consume(entity)
         } finally {

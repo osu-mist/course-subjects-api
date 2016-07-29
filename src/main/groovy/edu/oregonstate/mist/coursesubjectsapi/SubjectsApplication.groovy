@@ -1,5 +1,6 @@
 package edu.oregonstate.mist.coursesubjectsapi
 
+import edu.oregonstate.mist.api.BuildInfoManager
 import edu.oregonstate.mist.api.Configuration
 import edu.oregonstate.mist.api.Resource
 import edu.oregonstate.mist.api.InfoResource
@@ -9,7 +10,6 @@ import edu.oregonstate.mist.coursesubjectsapi.dao.SubjectsDAO
 import edu.oregonstate.mist.coursesubjectsapi.dao.UtilHttp
 import io.dropwizard.Application
 import io.dropwizard.client.HttpClientBuilder
-import io.dropwizard.setup.Bootstrap
 import io.dropwizard.setup.Environment
 import io.dropwizard.auth.AuthFactory
 import io.dropwizard.auth.basic.BasicAuthFactory
@@ -28,6 +28,10 @@ class SubjectsApplication extends Application<SubjectsConfiguration> {
     @Override
     public void run(SubjectsConfiguration configuration, Environment environment) {
         Resource.loadProperties()
+
+        BuildInfoManager buildInfoManager = new BuildInfoManager()
+        environment.lifecycle().manage(buildInfoManager)
+        environment.jersey().register(new InfoResource(buildInfoManager.getInfo()))
 
         // the httpclient from DW provides with many metrics and config options
         HttpClient httpClient = new HttpClientBuilder(environment)
