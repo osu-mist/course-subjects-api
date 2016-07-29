@@ -1,6 +1,6 @@
-# Web API Skeleton
+# Course Subjects API
 
-Skeleton for Dropwizard Web APIs.
+Course Subjects API. Used to look up courses in the class-search api.
 
 ### Generate Keys
 
@@ -144,8 +144,42 @@ This resource returns build and runtime information:
     > --cacert doej.pem \
     > --user "username:password" \
     > https://localhost:8080/api/v0/
-    {"name":"web-api-skeleton","time":1445964601991,"commit":"f08ce22","documentation":"swagger.yaml"}
+    {"name":"course-subjects-api","time":1469755834914,"commit":"c2183c8","documentation":"swagger.yaml"}
 
 NOTE: you should only specify a certificate with --cacert for local testing.
 Production servers should use a real certificate
 issued by a valid certificate authority.
+
+### GET /v1/course-subjects
+
+This resource returns an array of objects representing the courses matching the search query:
+
+    $ curl \
+     --insecure \
+     --key doej.cer \
+     --user "username:password" \
+     https://localhost:8080/v1/course-subjects
+     {
+       "links": {},
+       "data": [
+         {
+           "id": "AC",
+           "type": "course-subjects",
+           "attributes": {
+             "abbreviation": "AC",
+             "title": "Agricultural Chemistry"
+           },
+           "links": null
+         },
+         {
+           "id": "AE",
+           "type": "course-subjects",
+           "attributes": {
+             "abbreviation": "AE",
+             "title": "Agricultural Engineering"
+           },
+           "links": null
+         },
+         ...
+        ]
+     }
