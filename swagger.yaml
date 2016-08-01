@@ -1,47 +1,80 @@
 swagger: '2.0'
+
 info:
-  title: Web API Skeleton
-  description: Skeleton for Dropwizard Web APIs
-  version: '0.0'
-  license:
-    name: GNU Affero General Public License Version 3
-    url: http://www.gnu.org/licenses/agpl-3.0.en.html
-externalDocs:
-  description: GitHub Repository
-  url: https://github.com/osu-mist/web-api-skeleton
-host: localhost
-schemes:
-  - http
-basePath: /api/v0
-consumes:
-  - text/plain
-produces:
-  - text/plain
+  version: "0.0.1"
+  title: Course Subjects API
+
 paths:
-  /:
+  /course-subjects:
     get:
-      summary: Get information
-      description: Build and runtime information about the application.
+      tags:
+       - organizations
+       - departments
+      description: "Gets all `course-subject` objects."
+      operationId: getCourseSubjects
+      produces:
+        - application/json
       responses:
-        200:
-          description: Object containing information
+        "200":
+          description: "Successful response"
           schema:
-            $ref: '#/definitions/Info'
+            $ref: "#/definitions/ResultObjects"
+        "404":
+          description: "Not Found"
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/Error"
+
 definitions:
-  Info:
+  ResultObjects:
     properties:
-      name:
+      links:
+        $ref: "#/definitions/Links"
+      data:
+        type: array
+        items:
+          $ref: "#/definitions/ResourceObject"
+
+  ResourceObject:
+    properties:
+      id:
         type: string
-      time:
-        type: integer
-      commit:
+      type:
         type: string
-      documentation:
+      attributes:
+        $ref: "#/definitions/Attributes"
+
+  Attributes:
+    properties:
+      abbreviation:
         type: string
+        description: "This code is used to filter the list of courses. Example values: 'CS', 'BIO', 'PH'"
+      title:
+        type: string
+        description: "Human readable course title. Example values: 'Computer Science', 'Biology-UO', 'Physics'"
+
+  Links:
+    properties:
+      self:
+        type: string
+      first:
+        type: string
+      last:
+        type: string
+      prev:
+        type: string
+      next:
+        type: string
+
   Error:
+    type: object
     properties:
       status:
         type: integer
+        format: int32
       developerMessage:
         type: string
       userMesage:
