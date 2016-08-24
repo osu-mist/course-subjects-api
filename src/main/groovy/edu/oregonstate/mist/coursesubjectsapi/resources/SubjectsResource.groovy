@@ -15,7 +15,7 @@ import javax.ws.rs.Produces
 import javax.ws.rs.core.Response
 import javax.ws.rs.core.MediaType
 
-@Path('/course-subjects/')
+@Path('/subjects/')
 class SubjectResource extends Resource {
     Logger logger = LoggerFactory.getLogger(SubjectResource.class)
 
