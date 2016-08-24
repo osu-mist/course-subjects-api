@@ -63,7 +63,7 @@ class SubjectsDAO {
                     title:          it.title
             )
 
-            result << new ResourceObject(id: it.abbreviation, type: 'course-subjects',
+            result << new ResourceObject(id: it.abbreviation, type: 'subjects',
                     attributes: attributes)
         }
 

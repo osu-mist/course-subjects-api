@@ -8,7 +8,7 @@ import javax.validation.Valid
 import javax.validation.constraints.NotNull
 
 class SubjectsConfiguration extends Configuration {
-    @JsonProperty('course-subjects')
+    @JsonProperty('subjects')
     @NotNull
     @Valid
     Map<String, String> classSearch

@@ -5,7 +5,7 @@ info:
   title: Course Subjects API
 
 paths:
-  /course-subjects:
+  /subjects:
     get:
       tags:
        - organizations
