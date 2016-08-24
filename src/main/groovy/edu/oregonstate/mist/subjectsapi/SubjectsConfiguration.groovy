@@ -1,4 +1,4 @@
-package edu.oregonstate.mist.coursesubjectsapi
+package edu.oregonstate.mist.subjectsapi
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import edu.oregonstate.mist.api.Configuration

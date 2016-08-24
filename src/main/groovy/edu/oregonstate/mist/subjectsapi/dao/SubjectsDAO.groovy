@@ -1,9 +1,9 @@
-package edu.oregonstate.mist.coursesubjectsapi.dao
+package edu.oregonstate.mist.subjectsapi.dao
 
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import edu.oregonstate.mist.api.jsonapi.ResourceObject
-import edu.oregonstate.mist.coursesubjectsapi.core.Attributes
+import edu.oregonstate.mist.subjectsapi.core.Attributes
 import org.apache.http.HttpEntity
 import org.apache.http.client.HttpClient
 import org.apache.http.client.methods.CloseableHttpResponse

@@ -1,10 +1,10 @@
-package edu.oregonstate.mist.coursesubjectsapi.resources
+package edu.oregonstate.mist.subjectsapi.resources
 
 import com.codahale.metrics.annotation.Timed
 import edu.oregonstate.mist.api.Resource
 import edu.oregonstate.mist.api.AuthenticatedUser
 import edu.oregonstate.mist.api.jsonapi.ResultObject
-import edu.oregonstate.mist.coursesubjectsapi.dao.SubjectsDAO
+import edu.oregonstate.mist.subjectsapi.dao.SubjectsDAO
 import io.dropwizard.auth.Auth
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

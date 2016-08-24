@@ -1,4 +1,4 @@
-package edu.oregonstate.mist.coursesubjectsapi.dao
+package edu.oregonstate.mist.subjectsapi.dao
 
 import org.apache.http.HttpHeaders
 import org.apache.http.auth.AuthScope

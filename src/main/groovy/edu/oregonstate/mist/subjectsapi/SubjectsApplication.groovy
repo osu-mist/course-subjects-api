@@ -1,14 +1,13 @@
-package edu.oregonstate.mist.coursesubjectsapi
+package edu.oregonstate.mist.subjectsapi
 
 import edu.oregonstate.mist.api.BuildInfoManager
-import edu.oregonstate.mist.api.Configuration
 import edu.oregonstate.mist.api.Resource
 import edu.oregonstate.mist.api.InfoResource
 import edu.oregonstate.mist.api.AuthenticatedUser
 import edu.oregonstate.mist.api.BasicAuthenticator
-import edu.oregonstate.mist.coursesubjectsapi.dao.SubjectsDAO
-import edu.oregonstate.mist.coursesubjectsapi.dao.UtilHttp
-import edu.oregonstate.mist.coursesubjectsapi.resources.SubjectResource
+import edu.oregonstate.mist.subjectsapi.dao.SubjectsDAO
+import edu.oregonstate.mist.subjectsapi.dao.UtilHttp
+import edu.oregonstate.mist.subjectsapi.resources.SubjectResource
 import io.dropwizard.Application
 import io.dropwizard.client.HttpClientBuilder
 import io.dropwizard.setup.Environment
