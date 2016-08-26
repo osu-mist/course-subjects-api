@@ -46,7 +46,7 @@ authentication:
 api:
   endpointUri: https://api.oregonstate.edu/v1/web-api-skeleton/
 
-course-subjects:
+subjects:
   backendScheme: https
   backendHost: example.com
   backendPort: 8080
@@ -63,4 +63,4 @@ httpClient:
   maxConnectionsPerRoute: 2
   keepAlive: 0ms
   retries: 0
-  userAgent: course-subjects-api-api
+  userAgent: subjects-api

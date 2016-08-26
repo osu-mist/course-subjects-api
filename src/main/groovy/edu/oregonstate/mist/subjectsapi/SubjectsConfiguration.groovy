@@ -1,4 +1,4 @@
-package edu.oregonstate.mist.coursesubjectsapi
+package edu.oregonstate.mist.subjectsapi
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import edu.oregonstate.mist.api.Configuration
@@ -8,7 +8,7 @@ import javax.validation.Valid
 import javax.validation.constraints.NotNull
 
 class SubjectsConfiguration extends Configuration {
-    @JsonProperty('course-subjects')
+    @JsonProperty('subjects')
     @NotNull
     @Valid
     Map<String, String> classSearch

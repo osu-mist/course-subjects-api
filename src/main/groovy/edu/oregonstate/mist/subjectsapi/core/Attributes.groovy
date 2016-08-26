@@ -1,4 +1,4 @@
-package edu.oregonstate.mist.coursesubjectsapi.core
+package edu.oregonstate.mist.subjectsapi.core
 
 class Attributes {
     String abbreviation

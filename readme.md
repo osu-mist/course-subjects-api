@@ -144,13 +144,13 @@ This resource returns build and runtime information:
     > --cacert doej.pem \
     > --user "username:password" \
     > https://localhost:8080/api/v0/
-    {"name":"course-subjects-api","time":1469755834914,"commit":"c2183c8","documentation":"swagger.yaml"}
+    {"name":"subjects-api","time":1469755834914,"commit":"c2183c8","documentation":"swagger.yaml"}
 
 NOTE: you should only specify a certificate with --cacert for local testing.
 Production servers should use a real certificate
 issued by a valid certificate authority.
 
-### GET /v1/course-subjects
+### GET /v1/subjects
 
 This resource returns an array of objects representing the courses matching the search query:
 
@@ -158,13 +158,13 @@ This resource returns an array of objects representing the courses matching the 
      --insecure \
      --key doej.cer \
      --user "username:password" \
-     https://localhost:8080/v1/course-subjects
+     https://localhost:8080/v1/subjects
      {
        "links": {},
        "data": [
          {
            "id": "AC",
-           "type": "course-subjects",
+           "type": "subjects",
            "attributes": {
              "abbreviation": "AC",
              "title": "Agricultural Chemistry"
@@ -173,7 +173,7 @@ This resource returns an array of objects representing the courses matching the 
          },
          {
            "id": "AE",
-           "type": "course-subjects",
+           "type": "subjects",
            "attributes": {
              "abbreviation": "AE",
              "title": "Agricultural Engineering"
