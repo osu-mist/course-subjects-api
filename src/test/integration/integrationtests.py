@@ -20,6 +20,32 @@ def read_config(config_path):
 class CourseSubjectTests(unittest.TestCase):
     config = None
     _access_token = None
+    maxDiff = None
+
+    KNOWN_SUBJECTS = [
+        "ART", # Art
+        "BI", # Biology
+        "CH", # Chemistry
+        "CE", # Civil ENgineering
+        "COMM", # Communication
+        "CS", # Computer Science
+        "ECE", # Electrical & Computer Engineer
+        "ENGR", # Engineering
+        "FOR", # Forestry
+        "GEO", # Geosciences
+        "LA", # Liberal Arts
+        "LS", # Liberal Studies
+        "MTH", # Mathematics
+        "ME", # Mechanical Engineering
+        "MUS", # Music
+        "OC", # Oceanography
+        "PHL", # Philosophy
+        "PH", # Physics
+        "PSY", # Psychology
+        "H" # Public Health
+        "ST", # Statistics
+        "WR", # Written English
+    ]
 
     @property
     def url(self):
@@ -60,6 +86,33 @@ class CourseSubjectTests(unittest.TestCase):
             else:
                 return True
 
+    @staticmethod
+    def check_subject(subject):
+        """checks if a subject is valid. returns an error string or None"""
+        if type(subject) is not dict:
+            return 'expected an object'
+
+        if not {'id', 'type', 'attributes'}.issubset(subject.keys()):
+            return 'missing id, type, or attributes'
+
+        if type(subject['attributes']) is not dict:
+            return 'expected attributes to be an object'
+
+        if not {'abbreviation', 'title'}.issubset(subject['attributes'].keys()):
+            return 'missing abbreviation or title'
+
+
+        if subject['type'] != 'subjects':
+            return 'type != "subject"'
+
+        if subject['id'] != subject['attributes']['abbreviation']:
+            return 'expected id and abbreviation to be the same'
+
+        if not subject['attributes']['title']:
+            return 'empty title'
+
+        return None
+
     def test_success(self):
         """a request return 200 Success and a json object"""
         response = self.query()
@@ -67,11 +120,28 @@ class CourseSubjectTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.headers['content-type'], 'application/json')
 
-        with open('golden.json') as f:
-            golden = json.load(f)
-
         body = response.json()
-        self.assertEqual(body, golden)
+
+        self.assertEqual(set(body.keys()), {'data', 'links'})
+
+        # Check that all the returned subjects are valid
+        invalid_subjects = []
+        for subject in body['data']:
+            try:
+                error = self.check_subject(subject)
+            except Exception as e:
+                error = '%s: %s' % (type(e).__name__, e)
+
+            if error is not None:
+                invalid_subjects.append((subject, error))
+
+        self.assertEqual([], invalid_subjects)
+
+        # Check that a smattering of standard subjects are present
+        subject_codes = {subject['id'] for subject in body['data']}
+        missing_subjects = [code for code in self.KNOWN_SUBJECTS if code not in subject_codes]
+
+        self.assertEqual([], missing_subjects)
 
     def test_unauth(self):
         """an unauthenticated request returns a 401"""
@@ -90,7 +160,7 @@ class CourseSubjectTests(unittest.TestCase):
     def test_ssl_v2(self):
         """a call using SSLv2 fails"""
         try:
-            # if openssl is compiled without ssl support,
+            # openssl can be compiled without SSLv2 support, in which case
             # the PROTOCOL_SSLv2 constant is not available
             ssl.PROTOCOL_SSLv2
         except AttributeError:
@@ -99,6 +169,12 @@ class CourseSubjectTests(unittest.TestCase):
 
     def test_ssl_v3(self):
         """a call using SSLv3 fails"""
+        try:
+            # openssl can be compiled without SSLv3 support, in which case
+            # the PROTOCOL_SSLv3 constant is not available
+            ssl.PROTOCOL_SSLv3
+        except AttributeError:
+            self.skipTest('SSLv3 support not available')
         self.assertFalse(self.check_ssl(ssl.PROTOCOL_SSLv3, self.url))
 
 def parse_args():
