@@ -71,8 +71,11 @@ class CourseSubjectTests(unittest.TestCase):
         return 'Bearer ' + self.access_token()
 
     def query(self):
+        return self.request('GET')
+
+    def request(self, method):
         headers = {'Authorization': self.authorization()}
-        return requests.get(self.url, headers=headers)
+        return requests.request(method, self.url, headers=headers)
 
     def check_ssl(self, protocol, url):
         manager = urllib3.poolmanager.PoolManager(
@@ -152,6 +155,21 @@ class CourseSubjectTests(unittest.TestCase):
         """the API responds within five seconds"""
         response = self.query()
         self.assertLess(response.elapsed.total_seconds(), 5)
+
+    def test_post(self):
+        """a POST request should return 405 Method Not Allowed"""
+        response = self.request('POST')
+        self.assertEqual(response.status_code, 405)
+
+    def test_put(self):
+        """a PUT request should return 405 Method Not Allowed"""
+        response = self.request('PUT')
+        self.assertEqual(response.status_code, 405)
+
+    def test_delete(self):
+        """a DELETE request should return 405 Method Not Allowed"""
+        response = self.request('DELETE')
+        self.assertEqual(response.status_code, 405)
 
     def test_tls_v1(self):
         """a call using TLSv1 is successful"""
