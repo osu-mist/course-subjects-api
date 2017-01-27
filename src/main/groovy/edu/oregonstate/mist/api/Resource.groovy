@@ -115,12 +115,19 @@ abstract class Resource {
     }
 
     /**
-     * Returns string url to use in pagination links.
+     * Constructs a url to use in pagination links.
      *
-     * @param params
-     * @return
+     * The path is copied from the request path.
+     * The query parameters are taken from the params argument.
+     *
+     * Falsey params are omitted from the url.
+     * The parameters pageNumber and pageSize are
+     * converted to page[number] and page[size].
+     *
+     * @param params a map of query parameters for the url
+     * @return the url
      */
-    protected String getPaginationUrl(def params) {
+    protected String getPaginationUrl(Map params) {
         URIBuilder uriBuilder = new URIBuilder(endpointUri).setPath(uriInfo.requestUri.path)
 
         // use a copy of params since other parameters could be present
@@ -146,7 +153,7 @@ abstract class Resource {
      */
     protected Integer getPageNumber() {
         def pageNumber = uriInfo.getQueryParameters().getFirst('page[number]')
-        if (!pageNumber || !pageNumber.isInteger()) {
+        if (!pageNumber || !pageNumber.isInteger() || pageNumber.toInteger() < 0) {
             return DEFAULT_PAGE_NUMBER
         }
 
@@ -160,7 +167,7 @@ abstract class Resource {
      */
     protected Integer getPageSize() {
         def pageSize = uriInfo.getQueryParameters().getFirst('page[size]')
-        if (!pageSize || !pageSize.isInteger()) {
+        if (!pageSize || !pageSize.isInteger() || pageSize.toInteger() < 0) {
             return DEFAULT_PAGE_SIZE
         }
 
