@@ -53,7 +53,7 @@ class CourseSubjectTests(unittest.TestCase):
 
     def access_token(self):
         if self._access_token is None:
-            url = self.config['hostname'] + self.config['version'] + self.config["token_endpoint"]
+            url = self.config['hostname'] + self.config["token_endpoint"]
             post_data = {
                 'client_id': self.config["client_id"],
                 'client_secret': self.config["client_secret"],
