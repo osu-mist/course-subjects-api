@@ -180,7 +180,15 @@ class CourseSubjectTests(unittest.TestCase):
         else:
             self.assertEqual(response.status_code, 405)
 
-    def test_tls_v1(self):
+    def test_tls_v1_0(self):
+        """a call using TLSv1.0 fails"""
+        self.assertFalse(self.check_ssl(ssl.PROTOCOL_TLSv1, self.url))
+
+    def test_tls_v1_1(self):
+        """a call using TLSv1.1 fails"""
+        self.assertFalse(self.check_ssl(ssl.PROTOCOL_TLSv1_1, self.url))
+
+    def test_tls_v1_2(self):
         """a call using TLSv1.2 is successful"""
         self.assertTrue(self.check_ssl(ssl.PROTOCOL_TLSv1_2, self.url))
 
